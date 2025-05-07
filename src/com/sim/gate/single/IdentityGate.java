@@ -9,4 +9,14 @@ public class IdentityGate implements SingleGate {
 		return qbit;
 	}
 
+	@Override
+	public double coefficient() {
+		return 1;
+	}
+
+	@Override
+	public double[][] matrix() {
+		return null;
+	}
+
 }

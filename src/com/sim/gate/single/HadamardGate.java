@@ -19,4 +19,14 @@ public class HadamardGate implements SingleGate {
 		return newQbit;
 	}
 
+	@Override
+	public double coefficient() {
+		return INV_SQRT_2;
+	}
+	
+	@Override
+	public double[][] matrix() {
+		return new double[][] { { 1, 1 }, { 1, -1 } };
+	}
+
 }
