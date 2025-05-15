@@ -1,6 +1,7 @@
 package com.sim.gate.single;
 
 import com.sim.number.Complex;
+import com.sim.number.ComplexMatrix;
 import com.sim.number.QBit;
 
 public class HadamardGate implements SingleGate {
@@ -20,13 +21,17 @@ public class HadamardGate implements SingleGate {
 	}
 
 	@Override
-	public double coefficient() {
-		return INV_SQRT_2;
+	public Complex coefficient() {
+		return Complex.ofRealConstant(INV_SQRT_2);
 	}
 	
 	@Override
-	public double[][] matrix() {
-		return new double[][] { { 1, 1 }, { 1, -1 } };
+	public ComplexMatrix matrix() {
+		return new ComplexMatrix.Builder().putCartesian(1, 0)
+										  .putCartesian(1, 0)
+										  .putCartesian(1, 0)
+										  .putCartesian(-1, 0)
+										  .build(2);
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.sim.gate.single;
 
 import com.sim.number.Complex;
+import com.sim.number.ComplexMatrix;
 import com.sim.number.QBit;
 
 public class PauliYGate implements SingleGate {
@@ -18,6 +19,20 @@ public class PauliYGate implements SingleGate {
 		QBit newQbit = new QBit(newZeroState, newOneState);
 
 		return newQbit;
+	}
+	
+	@Override
+	public Complex coefficient() {
+		return Complex.ofRealConstant(1);
+	}
+	
+	@Override
+	public ComplexMatrix matrix() {
+		return new ComplexMatrix.Builder().putCartesian(0, 0)
+										  .putCartesian(0, -1)
+										  .putCartesian(0, 1)
+										  .putCartesian(0, 0)
+										  .build(2);
 	}
 
 }

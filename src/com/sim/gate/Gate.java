@@ -1,9 +1,12 @@
 package com.sim.gate;
 
+import com.sim.number.Complex;
+import com.sim.number.ComplexMatrix;
+
 public interface Gate {
 	
-	double coefficient();
+	Complex coefficient();
 	
-	double[][] matrix();
+	ComplexMatrix matrix();
 
 }

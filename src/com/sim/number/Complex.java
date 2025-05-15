@@ -393,6 +393,14 @@ public final class Complex implements Serializable {
 		return new Complex(Math.cos(x), Math.sin(x));
 	}
 
+	public static Complex ofRealConstant(double real) {
+		return new Complex(real, 0);
+	}
+	
+	public static Complex ofImaginaryConstant(double im) {
+		return new Complex(0, im);
+	}
+	
 	/**
 	 * Returns a {@code Complex} instance representing the specified string
 	 * {@code s}.
