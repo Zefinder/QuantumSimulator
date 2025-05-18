@@ -72,7 +72,7 @@ import java.util.function.DoubleUnaryOperator;
  * @see <a href="http://www.open-std.org/JTC1/SC22/WG14/www/standards"> ISO/IEC
  *      9899 - Programming languages - C</a>
  */
-public final class Complex implements Serializable {
+public final class Complex implements Serializable, Cloneable {
 	private static final DecimalFormat df = new DecimalFormat("0.0###");
 
 	/**
@@ -3621,6 +3621,11 @@ public final class Complex implements Serializable {
 		}
 
 		return res;
+	}
+	
+	@Override
+	protected Complex clone() {
+		return new Complex(real, imaginary);
 	}
 
 	/**
