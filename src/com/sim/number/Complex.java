@@ -3629,14 +3629,21 @@ public final class Complex implements Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns {@code true} if the values are equal according to semantics of
-	 * {@link Double#equals(Object)}.
+	 * Returns {@code true} if the values are equal
 	 *
 	 * @param x Value
 	 * @param y Value
 	 * @return {@code Double.valueof(x).equals(Double.valueOf(y))}.
 	 */
 	private static boolean equals(double x, double y) {
+		if (Double.doubleToLongBits(x) == NEGATIVE_ZERO_LONG_BITS) {
+			x = -x;
+		}
+		
+		if (Double.doubleToLongBits(y) == NEGATIVE_ZERO_LONG_BITS) {
+			y = -y;
+		}
+		
 		return Double.doubleToLongBits(x) == Double.doubleToLongBits(y);
 	}
 

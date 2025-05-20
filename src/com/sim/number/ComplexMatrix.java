@@ -66,7 +66,46 @@ public class ComplexMatrix {
 	}
 
 	public ComplexMatrix kronecker(ComplexMatrix other) {
-		return null;
+		/*
+		 * For Kronecker product, if A is a m x n matrix and B is a p x q matrix, the
+		 * resulting matrix will have size mp x nq
+		 */
+		Complex[][] otherValues = other.values;
+
+		int aRows = values.length;
+		int aColumns = column;
+		int bRows = otherValues.length;
+		int bColumns = other.column;
+
+		Complex[][] newValues = new Complex[aRows * bRows][aColumns * bColumns];
+		for (int i = 0; i < values.length; i++) {
+			for (int j = 0; j < column; j++) {
+				Complex coeff = values[i][j];
+				ComplexMatrix tmpMatrix = other.timesConstant(coeff);
+				Complex[][] tmpValues = tmpMatrix.values;
+
+				for (int k = 0; k < bRows; k++) {
+					for (int l = 0; l < bColumns; l++) {
+						newValues[k + i * bRows][l + j * bColumns] = tmpValues[k][l];
+					}
+				}
+			}
+		}
+
+		ComplexMatrix newMatrix = new ComplexMatrix(aColumns * bColumns, newValues);
+		return newMatrix;
+	}
+
+	public ComplexMatrix conjugateTranspose() {
+		Complex[][] newValues = new Complex[column][values.length];
+		for (int i = 0; i < values.length; i++) {
+			for (int j = 0; j < column; j++) {
+				newValues[j][i] = values[i][j].conj();
+			}
+		}
+
+		ComplexMatrix newMatrix = new ComplexMatrix(values.length, newValues);
+		return newMatrix;
 	}
 
 	/**
@@ -153,7 +192,9 @@ public class ComplexMatrix {
 		Complex[][] otherValues = other.values;
 		for (int i = 0; i < values.length; i++) {
 			for (int j = 0; j < column; j++) {
-				if (!values[i][j].equals(otherValues[i][j])) {
+				Complex a = values[i][j];
+				Complex b = otherValues[i][j];
+				if (!a.equals(b)) {
 					return false;
 				}
 			}

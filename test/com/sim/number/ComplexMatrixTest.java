@@ -77,13 +77,73 @@ class ComplexMatrixTest {
 	@Test
 	void testMatrixProduct() throws MatrixProductException {
 		ComplexMatrix trueMatrix = new ComplexMatrix.Builder().putCartesian(5, 2).putCartesian(12, -6).build(1);
-		
+
 		ComplexMatrix A = new ComplexMatrix.Builder().putCartesian(1, 0).putCartesian(0, 1).putCartesian(3, 0)
 				.putCartesian(2, -1).putCartesian(0, 0).putCartesian(0, 4).build(3);
 		ComplexMatrix B = new ComplexMatrix.Builder().putCartesian(6, 0).putCartesian(2, 1).putCartesian(0, 0).build(1);
 		ComplexMatrix testMatrix = A.product(B);
+
+		assertEquals(trueMatrix, testMatrix);
+	}
+
+	@Test
+	void testKronecker() {
+		ComplexMatrix trueMatrix = new ComplexMatrix.Builder()
+				.putCartesian(1, 0).putCartesian(2, 0).putCartesian(0, 1).putCartesian(0, 2)
+				.putCartesian(3, 0).putCartesian(4, 0).putCartesian(0, 3).putCartesian(0, 4)
+				.putCartesian(0, 0).putCartesian(0, 0).putCartesian(-1, 0).putCartesian(-2, 0)
+				.putCartesian(0, 0).putCartesian(0, 0).putCartesian(-3, 0).putCartesian(-4, 0)
+				.putCartesian(0, -1).putCartesian(0, -2).putCartesian(2, 0).putCartesian(4, 0)
+				.putCartesian(0, -3).putCartesian(0, -4).putCartesian(6, 0).putCartesian(8, 0)
+				.build(4);
+		
+		ComplexMatrix A = new ComplexMatrix.Builder()
+				.putCartesian(1, 0).putCartesian(0, 1)
+				.putCartesian(0, 0).putCartesian(-1, 0)
+				.putCartesian(0, -1).putCartesian(2, 0)
+				.build(2);
+		
+		ComplexMatrix B = new ComplexMatrix.Builder()
+				.putCartesian(1, 0).putCartesian(2, 0)
+				.putCartesian(3, 0).putCartesian(4, 0)
+				.build(2);
+		
+		ComplexMatrix testMatrix = A.kronecker(B);
+		
+		assertEquals(trueMatrix, testMatrix);
+	}
+	
+	@Test
+	void testConjugateTransposeLine() {
+		ComplexMatrix trueMatrix = new ComplexMatrix.Builder().putCartesian(1, 0).putCartesian(2, 1).putCartesian(3, -1)
+				.putCartesian(4, 0).build(1);
+		ComplexMatrix matrix = new ComplexMatrix.Builder().putCartesian(1, 0).putCartesian(2, -1).putCartesian(3, 1)
+				.putCartesian(4, 0).build(4);
+		ComplexMatrix testMatrix = matrix.conjugateTranspose();
 		
 		assertEquals(trueMatrix, testMatrix);
 	}
 
+	@Test
+	void testConjugateTransposeColumn() {
+		ComplexMatrix trueMatrix = new ComplexMatrix.Builder().putCartesian(1, 0).putCartesian(2, 1).putCartesian(3, -1)
+				.putCartesian(4, 0).build(4);
+		ComplexMatrix matrix = new ComplexMatrix.Builder().putCartesian(1, 0).putCartesian(2, -1).putCartesian(3, 1)
+				.putCartesian(4, 0).build(1);
+		ComplexMatrix testMatrix = matrix.conjugateTranspose();
+		
+		assertEquals(trueMatrix, testMatrix);
+	}
+	
+	@Test
+	void testConjugateTranspose() {
+		ComplexMatrix trueMatrix = new ComplexMatrix.Builder().putCartesian(1, 0).putCartesian(4, 0).putCartesian(2, 1)
+				.putCartesian(5, 1).putCartesian(3, -1).putCartesian(6, -1).build(2);
+		ComplexMatrix matrix = new ComplexMatrix.Builder().putCartesian(1, 0).putCartesian(2, -1).putCartesian(3, 1)
+				.putCartesian(4, 0).putCartesian(5, -1).putCartesian(6, 1).build(3);
+		ComplexMatrix testMatrix = matrix.conjugateTranspose();
+		
+		assertEquals(trueMatrix, testMatrix);
+	}
+	
 }
