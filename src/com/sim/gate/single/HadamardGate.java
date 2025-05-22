@@ -6,7 +6,7 @@ import com.sim.number.QBit;
 
 public class HadamardGate implements SingleGate {
 
-	private static final double INV_SQRT_2 = 0.7071067811865476;
+	private static final double INV_SQRT_2 = 1 / Math.sqrt(2);
 
 	@Override
 	public QBit apply(QBit qbit) {

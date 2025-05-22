@@ -3617,7 +3617,13 @@ public final class Complex implements Serializable, Cloneable {
 		} else if (imaginary == 0d) {
 			res = df.format(real);
 		} else {
-			res = "%s + %si".formatted(df.format(real), df.format(imaginary));
+			String sign = "+";
+			double im = imaginary;
+			if (negative(imaginary)) {
+				sign = "-";
+				im = -im;
+			}
+			res = "%s %s %si".formatted(df.format(real), sign, df.format(im));
 		}
 
 		return res;

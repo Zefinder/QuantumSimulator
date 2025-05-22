@@ -39,8 +39,7 @@ public class QBit {
 	 * Returns the actual zero state probability (ONLY FOR TESTING!)
 	 */
 	public double getZeroStateProbability() {
-		double p = zeroStateValue.abs();
-		return p * p;
+		return zeroStateValue.norm();
 	}
 
 	public Complex getOneStateValue() {
@@ -51,8 +50,7 @@ public class QBit {
 	 * Return the actual one state probability
 	 */
 	public double getOneStateProbability() {
-		double p = oneStateValue.abs();
-		return p * p;
+		return oneStateValue.norm();
 	}
 
 	public Complex[] getVector() {

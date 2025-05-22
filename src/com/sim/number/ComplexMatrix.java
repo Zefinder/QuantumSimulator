@@ -109,6 +109,25 @@ public class ComplexMatrix {
 	}
 
 	/**
+	 * Returns the value in the matrix, or 0 if out of bounds
+	 */
+	public Complex get(int i, int j) {
+		if (i < 0 || i >= values.length || j < 0 || j >= column) {
+			return Complex.ZERO;
+		}
+
+		return values[i][j];
+	}
+
+	public int getColumn() {
+		return column;
+	}
+
+	public int getRows() {
+		return values.length;
+	}
+
+	/**
 	 * Builder for complex matrices. When building, if the number of values is not a
 	 * multiple of the column, zeros will be added to complete the last row.
 	 */
