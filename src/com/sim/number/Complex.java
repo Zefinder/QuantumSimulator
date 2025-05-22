@@ -72,7 +72,7 @@ import java.util.function.DoubleUnaryOperator;
  * @see <a href="http://www.open-std.org/JTC1/SC22/WG14/www/standards"> ISO/IEC
  *      9899 - Programming languages - C</a>
  */
-public final class Complex implements Serializable {
+public final class Complex implements Serializable, Cloneable {
 	private static final DecimalFormat df = new DecimalFormat("0.0###");
 
 	/**
@@ -393,6 +393,14 @@ public final class Complex implements Serializable {
 		return new Complex(Math.cos(x), Math.sin(x));
 	}
 
+	public static Complex ofRealConstant(double real) {
+		return new Complex(real, 0);
+	}
+	
+	public static Complex ofImaginaryConstant(double im) {
+		return new Complex(0, im);
+	}
+	
 	/**
 	 * Returns a {@code Complex} instance representing the specified string
 	 * {@code s}.
@@ -3609,21 +3617,39 @@ public final class Complex implements Serializable {
 		} else if (imaginary == 0d) {
 			res = df.format(real);
 		} else {
-			res = "%s + %si".formatted(df.format(real), df.format(imaginary));
+			String sign = "+";
+			double im = imaginary;
+			if (negative(imaginary)) {
+				sign = "-";
+				im = -im;
+			}
+			res = "%s %s %si".formatted(df.format(real), sign, df.format(im));
 		}
 
 		return res;
 	}
+	
+	@Override
+	protected Complex clone() {
+		return new Complex(real, imaginary);
+	}
 
 	/**
-	 * Returns {@code true} if the values are equal according to semantics of
-	 * {@link Double#equals(Object)}.
+	 * Returns {@code true} if the values are equal
 	 *
 	 * @param x Value
 	 * @param y Value
 	 * @return {@code Double.valueof(x).equals(Double.valueOf(y))}.
 	 */
 	private static boolean equals(double x, double y) {
+		if (Double.doubleToLongBits(x) == NEGATIVE_ZERO_LONG_BITS) {
+			x = -x;
+		}
+		
+		if (Double.doubleToLongBits(y) == NEGATIVE_ZERO_LONG_BITS) {
+			y = -y;
+		}
+		
 		return Double.doubleToLongBits(x) == Double.doubleToLongBits(y);
 	}
 
