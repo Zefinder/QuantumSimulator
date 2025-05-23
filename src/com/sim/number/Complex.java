@@ -73,7 +73,7 @@ import java.util.function.DoubleUnaryOperator;
  *      9899 - Programming languages - C</a>
  */
 public final class Complex implements Serializable, Cloneable {
-	private static final DecimalFormat df = new DecimalFormat("0.0###");
+	private static final DecimalFormat df = new DecimalFormat("0.####");
 
 	/**
 	 * A complex number representing \( i \), the square root of \( -1 \).

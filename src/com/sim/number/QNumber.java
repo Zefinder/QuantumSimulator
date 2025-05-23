@@ -5,21 +5,32 @@ import java.util.Random;
 public class QNumber {
 
 	private final Random generator;
+	private final int bitNumber;
 	private ComplexMatrix coefficientVector;
 
 	public QNumber(int bitNumber, Complex... coefficients) {
 		generator = new Random();
-
-		int fillNumber = (1 << bitNumber) - coefficients.length;
-		if (fillNumber < 0) {
-			fillNumber = 0;
-		}
-
+		this.bitNumber = bitNumber;
+		
+		int fillNumber = (1 << bitNumber);
 		ComplexMatrix.Builder builder = new ComplexMatrix.Builder();
-		for (Complex coefficient : coefficients) {
-			builder.putComplex(coefficient);
-		}
+		
+		// If no coefficients, then everything on state 0
+		if (coefficients.length == 0) {
+			fillNumber -= 1;
+			builder.putComplex(Complex.ONE);
+		} else {
+			fillNumber -= coefficients.length;
+			if (fillNumber < 0) {
+				fillNumber = 0;
+			}
 
+			for (Complex coefficient : coefficients) {
+				builder.putComplex(coefficient);
+			}
+		}
+		
+		// May cause inconsistencies... anyways
 		for (int i = 0; i < fillNumber; i++) {
 			builder.putComplex(Complex.ZERO);
 		}
@@ -80,6 +91,10 @@ public class QNumber {
 	 */
 	public ComplexMatrix getCoefficientVector() {
 		return coefficientVector;
+	}
+	
+	public int getBitNumber() {
+		return bitNumber;
 	}
 
 	@Override

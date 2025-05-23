@@ -28,6 +28,19 @@ public final class Combiner {
 
 		return gate;
 	}
+	
+	public static Gate combineN(Gate gate, int n) {
+		if (n < 0) {
+			n = 0;
+		}
+		
+		Gate[] gates = new Gate[n];
+		for (int i= 0; i < n; i++) {
+			gates[i] = gate;
+		}
+		
+		return combine(gates);
+	}
 
 	private static class CombinedGate implements Gate {
 
