@@ -52,8 +52,8 @@ public class ComplexMatrix {
 
 		Complex[][] newValues = new Complex[aRows][bColumns];
 		for (int i = 0; i < aRows; i++) {
-			Complex c = Complex.ofCartesian(0, 0);
 			for (int j = 0; j < bColumns; j++) {
+				Complex c = Complex.ofCartesian(0, 0);
 				for (int k = 0; k < aColumns; k++) {
 					c = c.add(values[i][k].multiply(otherValues[k][j]));
 				}
@@ -119,7 +119,7 @@ public class ComplexMatrix {
 		return values[i][j];
 	}
 
-	public int getColumn() {
+	public int getColumns() {
 		return column;
 	}
 
