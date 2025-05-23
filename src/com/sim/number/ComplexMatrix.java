@@ -96,6 +96,52 @@ public class ComplexMatrix {
 		return newMatrix;
 	}
 
+	public ComplexMatrix add(ComplexMatrix other) throws MatrixProductException {
+		Complex[][] otherValues = other.values;
+
+		int aRows = values.length;
+		int aColumns = column;
+		int bRows = otherValues.length;
+		int bColumns = other.column;
+
+		if (aRows != bRows || aColumns != bColumns) {
+			throw new MatrixProductException("The number of rows and columns of both matrices must be the same");
+		}
+
+		Complex[][] newValues = new Complex[aRows][aColumns];
+		for (int i = 0; i < values.length; i++) {
+			for (int j = 0; j < column; j++) {
+				newValues[i][j] = values[i][j].add(otherValues[i][j]);
+			}
+		}
+		
+		ComplexMatrix newMatrix = new ComplexMatrix(aColumns, newValues);
+		return newMatrix;
+	}
+	
+	public ComplexMatrix sub(ComplexMatrix other) throws MatrixProductException {
+		Complex[][] otherValues = other.values;
+
+		int aRows = values.length;
+		int aColumns = column;
+		int bRows = otherValues.length;
+		int bColumns = other.column;
+
+		if (aRows != bRows || aColumns != bColumns) {
+			throw new MatrixProductException("The number of rows and columns of both matrices must be the same");
+		}
+
+		Complex[][] newValues = new Complex[aRows][aColumns];
+		for (int i = 0; i < values.length; i++) {
+			for (int j = 0; j < column; j++) {
+				newValues[i][j] = values[i][j].subtract(otherValues[i][j]);
+			}
+		}
+		
+		ComplexMatrix newMatrix = new ComplexMatrix(aColumns, newValues);
+		return newMatrix;
+	}
+
 	public ComplexMatrix conjugateTranspose() {
 		Complex[][] newValues = new Complex[column][values.length];
 		for (int i = 0; i < values.length; i++) {

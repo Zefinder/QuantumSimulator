@@ -66,8 +66,10 @@ public class Sequencer {
 	}
 
 	public void addStep(SequencerStep step) throws GateNotGoodSizeException, MatrixProductException {
+		Gate gate = step.build();
+		
 		for (int i = 0; i < step.repeatCounter; i++) {
-			addStep(step.build());
+			addStep(gate);
 		}
 	}
 
@@ -78,7 +80,6 @@ public class Sequencer {
 		}
 
 		QNumber qresult = start;
-
 		try {
 			for (int i = 0; i < gateList.size(); i++) {
 				Gate gate = gateList.get(i);
@@ -101,6 +102,7 @@ public class Sequencer {
 			e.printStackTrace();
 		}
 
+		this.qresult = qresult;		
 		return qresult;
 	}
 
